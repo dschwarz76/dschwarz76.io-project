@@ -1,0 +1,25 @@
+name: "dschwarz76.io-project"
+output_dir: "."
+navbar:
+  
+  left:
+    - text: "Introduction"
+      href: index.html
+    - text: "Strategy"
+      href: strategy.html      
+    - text: "Data"
+      href: data.html
+    - text: "More Data"
+      href: moredata.html
+    - text: "Even More Data"
+      href: evenmoredata.html
+    - text: "Conclusions"
+      href: conclusions.html
+    - text: "Sources"
+      href: sources.html
+     
+     
+    
+     # do render_site() when done
+     
+    
