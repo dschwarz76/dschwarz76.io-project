@@ -1,0 +1,6 @@
+### Strategy
+
+My analytical strategy is to do a regression analysis between pairs of variables. I'll plot relationships, look for measures of correlation, and later analyze the results. 
+
+In addition to comparing the three types of immigration to the two types of crime, I'll also make a crucial adjustment. I'll account for the proportion of immigration in the overall United States population. Why? Well, if immigration is rising faster than the overall United States population, it has a larger proportion and therefore a larger impact on the US population. Conversely, if immigration is lagging the growth of the overall United States population, it has a smaller proportion and impact. This is an important distinction because if immigration is rising, and crime is rising, but immigration is rising less than the overall population, then this correlation is more a result of rising trends rather than immigration actually having a larger impact on crime.
+
