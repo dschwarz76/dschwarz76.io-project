@@ -1,0 +1,90 @@
+### More Data
+
+Now let's look at the association between illegal immigration and crime rates from 1990-2014.
+
+We'll start by analyzing violent crime rates.
+
+```{r}
+
+illegal <- setNames(illegal, c("illegal_year", "illegal_pop"))
+
+# I now have to shorten the vector because we're only looking at 1990-2014 now
+# The name below refers to 19-ninety, the year we begin
+
+
+ninetyviolentcrime <- c(uscrime$violent[31:55])
+
+
+violentillegal <- (lm(illegal$illegal_pop ~ ninetyviolentcrime))
+
+plot(ninetyviolentcrime, illegal$illegal_pop, xlab ="Violent crime incidents", ylab ="Immigrants in a year")
+
+abline(violentillegal, col="blue")
+
+summary(violentillegal)
+
+cor(ninetyviolentcrime, illegal$illegal_pop)
+
+```
+
+Wow! The correlation between illegal immigration and violent crime is -0.90. That's a very strong relationship, and this time the relationship is linear and negative. The p-value is a miniscule 0.00000000062. 
+
+What happens when we adjust for illegal immigration's impact on the greater US population?
+
+```{r}
+
+illegal_adjusted <- c(illegal$illegal_pop)/c(usapop$uspop[31:55])
+
+violentillegal_adjusted <- (lm(illegal_adjusted ~ ninetyviolentcrime))
+
+plot(ninetyviolentcrime, illegal_adjusted, xlab ="Violent crime incidents", ylab ="Immigrants as proportion")
+
+abline(violentillegal_adjusted, col="blue")
+
+cor(ninetyviolentcrime, illegal_adjusted)
+
+summary(violentillegal_adjusted)
+
+```
+
+There's still a negative, linear relationship here. The strength is strong. The correlation didn't change much. It just dipped slightly to -0.88, and the p-value is still a tiny 0.0000000067.
+
+What happens when we look at illegal immigration and property crime?
+
+```{r}
+
+ninetypropertycrime <- c(uscrime$property[31:55])
+
+
+propertyillegal <- (lm(illegal$illegal_pop ~ ninetypropertycrime))
+
+plot(ninetypropertycrime, illegal$illegal_pop, xlab ="Property crime incidents", ylab ="Immigrants in a year")
+
+abline(propertyillegal, col="blue")
+
+summary(propertyillegal)
+
+cor(ninetypropertycrime, illegal$illegal_pop)
+
+```
+
+Interesting. As it relates to illegal immigration, the property crime data looks very similar to the violent crime data. There's a strong, negative, linear relationship. The correlation is -0.90. The p-value is 0.0000000012.
+
+Let's see what happens when we look at illegal immigration as it relates to property crime, this time adjusting for population impact.
+
+```{r}
+
+propertyillegal_adjusted <- (lm(illegal_adjusted ~ ninetypropertycrime))
+
+plot(ninetypropertycrime, illegal_adjusted, xlab ="Preoperty crime incidents", ylab ="Immigrants as proportion")
+
+abline(propertyillegal_adjusted, col="blue")
+
+cor(ninetypropertycrime, illegal_adjusted)
+
+summary(propertyillegal_adjusted)
+
+
+```
+
+That adjustment didn't have much of an impact. The attributes of the relationship remain the same. The correlation lessens slightly but is still a strong -0.87, with a p-value of 0.000000023.

@@ -1,0 +1,97 @@
+### Even More Data
+
+Lastly, let's look at the relationship between crime rates and the number of refugees entering the United States from 1975-2014. 
+
+Again, we'll begin by looking at violent crime rates.
+
+```{r}
+
+# Now looking at refugee data, 1975-2014
+
+refugee <- setNames(refugee, c("refugee_year", "refugee_pop"))
+
+seventyfiveviolentcrime <- c(uscrime$violent[16:55])
+
+
+violentrefugee <- (lm(refugee$refugee_pop ~ seventyfiveviolentcrime))
+
+plot(seventyfiveviolentcrime, refugee$refugee_pop, xlab ="Violent crime incidents", ylab ="Immigrants in a year")
+
+abline(violentrefugee, col="blue")
+
+summary(violentrefugee)
+
+cor(seventyfiveviolentcrime, refugee$refugee_pop)
+
+```
+
+The association between refugees gaining immigration status and the violent crime rate is linear, positive, and with moderate-to-strong strength. The correlation is 0.54 and the p-value is 0.00030. This is a significant result.
+
+Let's see what happens when we make the population adjustment.
+
+```{r}
+
+refugee_adjusted <- c(refugee$refugee_pop)/c(usapop$uspop[16:55])
+
+violentrefugee_adjusted <- (lm(refugee_adjusted ~ seventyfiveviolentcrime))
+
+plot(seventyfiveviolentcrime, refugee_adjusted, xlab ="Violent crime incidents", ylab ="Immigrants as proportion")
+
+abline(violentrefugee_adjusted, col="blue")
+
+cor(seventyfiveviolentcrime, refugee_adjusted)
+
+summary(violentrefugee_adjusted)
+
+```
+
+These results are very similar to the results without adjusting for population impact. Again, there is a positive, linear, moderate-to-strong relationship. The correlation remains 0.54. The p-value is virtually unchanged, and now sits at 0.00028.
+
+In fact, these results also remind me of the first regression analysis in this project, the one comparing violent crime to legal immigration. I'm curious if there's an interaction between refugee immigration and legal immigration in association with violent crime. 
+
+```{r}
+
+summary(lm(seventyfiveviolentcrime ~ legal$immi_pop[16:55] * refugee$refugee_pop))
+
+```
+
+After running a test, we see that the effect of being a refugee is 0.0000000049 point higher for violent crime for each additional unit of legal immigration.
+
+Now let's look at property crime in regards to refugee immigration.
+
+```{r}
+
+seventyfivepropertycrime <- c(uscrime$property[16:55])
+
+
+propertyrefugee <- (lm(refugee$refugee_pop ~ seventyfivepropertycrime))
+
+plot(seventyfivepropertycrime, refugee$refugee_pop, xlab ="Property crime incidents", ylab ="Immigrants in a year")
+
+abline(propertyrefugee, col="blue")
+
+summary(propertyrefugee)
+
+cor(seventyfivepropertycrime, refugee$refugee_pop)
+
+```
+
+The relationship between property crime and refugee immigration is positive, linear, and has moderate-to-strong strength. The correlation is 0.52 and the p-value is 0.00054.
+
+Lastly, let's see what happens when we look at the same relationship, adjusting for population impact.
+
+```{r}
+
+propertyrefugee_adjusted <- (lm(refugee_adjusted ~ seventyfivepropertycrime))
+
+plot(seventyfivepropertycrime, refugee_adjusted, xlab ="Property crime incidents", ylab ="Immigrants as proportion")
+
+abline(propertyrefugee_adjusted, col="blue")
+
+cor(seventyfivepropertycrime, refugee_adjusted)
+
+summary(propertyrefugee_adjusted)
+
+```
+
+Unsurprisingly, there is a linear, positive relationship again. However, the association became stronger. The correlation is 0.62. The p-value remains small: 0.00001734.

@@ -1,0 +1,152 @@
+### Data
+
+```{r}
+# set names for columns
+uscrime <- setNames(uscrime, c("year", "population", "violent", "property", "violent_percentage", "pre"))
+
+legal <- setNames(legal, c("immi_year", "immi_pop", "immi_percent", "pre2"))
+
+```
+
+Let's first look at crime rates in the United States from 1960-2014. Why? Because it's fun! It's also going to give us a sense of how violent crime and property crime were measured over that time period.
+
+```{r}
+
+plot(uscrime$year,uscrime$violent, main= "Incidents of Violent Crime per 100,000 people", 
+     xlab= "Year", ylab= "Violent Crime") 
+
+plot(uscrime$year,uscrime$property, main= "Incidents of Property Crime per 100,000 people", 
+     xlab= "Year", ylab= "Property Crime") 
+```
+
+Now onto the comparisons. Let's analyze legal immigration and its relationship to crime rates. These legal immigration statistics refer to the number of people who legally entered the United States in a given year.  
+
+```{r}
+
+violentlegal <- (lm(legal$immi_pop ~ uscrime$violent))
+
+plot(uscrime$violent, legal$immi_pop, xlab ="Violent crime incidents", ylab ="Immigrants in a year")
+
+abline(violentlegal, col="blue")
+
+summary(violentlegal)
+
+cor(uscrime$violent, legal$immi_pop)
+
+```
+
+Above we see the association between violent crime and legal immigration. The regression line shows a positive, linear relationship. There's moderate-to-strong strength between these two variables. The correlation is 0.54. The p-value is a very small 0.000023, which shows a statistically significant result. This means that this relationship has a very small chance of occurring by chance.
+
+
+```{r}
+# Adding another dataset here. This shows the total population of the United States on an annual basis. I'm using this as my denominator when seeing how big of a proportion -- year by year -- an immigration category is of the overall US population.
+
+usapop <- read.csv("usapop.csv")
+
+usapop <- setNames(usapop, c("date", "uspop"))
+
+# Now I'll be comparing the violent crime rate to legal immigration, with legal immigration as a proportion of the overall US population. 
+
+legal_adjusted <- c(legal$immi_pop)/c(usapop$uspop)
+
+violentlegal_adjusted <- (lm(legal_adjusted ~ uscrime$violent))
+
+plot(uscrime$violent, legal_adjusted, xlab ="Violent crime incidents", ylab ="Immigrants as proportion")
+
+abline(violentlegal_adjusted, col="blue")
+
+cor(uscrime$violent, legal_adjusted)
+
+summary(violentlegal_adjusted)
+
+```
+
+After adjusting for the impact that legal immigration had on the United States population, the correlation becomes a little bit stronger. The correlation between legal immigration and violent crime incidents is now 0.59, and again there is a positive, linear correlation. The p-value is a tiny 0.0000019, which shows a statistically signficant result.
+
+I'm curious to see what the results would be if we removed the two observations in the upper right corner. What would the correlation be then?
+
+```{r}
+
+# I removed data from 1990 and 1991 and reloaded the files.
+
+legal2 <- read.csv("legal2.csv")
+
+legal2 <- setNames(legal2, c("immi_year", "immi_pop", "immi_percent", "pre2"))
+
+usapop2 <- read.csv("usapop2.csv")
+
+usapop2 <- setNames(usapop2, c("date", "uspop"))
+
+uscrime2 <- read.csv("USCrime2.csv")
+
+uscrime2 <- setNames(uscrime2, c("year", "population", "violent", "property", "violent_percentage", "pre"))
+
+legal_adjusted2 <- c(legal2$immi_pop)/c(usapop2$uspop)
+
+violentlegal_adjusted2 <- (lm(legal_adjusted2 ~ uscrime2$violent))
+
+plot(uscrime2$violent, legal_adjusted2, xlab ="Violent crime incidents", ylab ="Immigrants as proportion")
+
+abline(violentlegal_adjusted2, col="blue")
+
+cor(uscrime2$violent, legal_adjusted2)
+
+summary(violentlegal_adjusted2)
+
+
+```
+
+Removing those two observations -- which were large residuals -- actually lowered the correlation back to 0.54. I guess those were pulling the slope closer to 1. 
+
+Now let's look at the relationship between legal immigration and property crime.
+
+```{r}
+
+propertylegal <- (lm(legal$immi_pop ~ uscrime$property))
+
+plot(uscrime$property, legal$immi_pop, xlab ="Property crime incidents", ylab ="Immigrants in a year")
+
+abline(propertylegal, col="blue")
+
+summary(propertylegal)
+
+cor(uscrime$property, legal$immi_pop)
+
+```
+
+While there's still a positive, linear relationship, the strength of the correlation is weak here. The correlation is 0.21. The p-value is 0.12 so these results do not show a statistically significant relationship.
+
+```{r}
+
+propertylegal_adjusted <- (lm(legal_adjusted ~ uscrime$property))
+
+plot(uscrime$property, legal_adjusted, xlab ="Property crime incidents", ylab ="Immigrants as proportion")
+
+abline(propertylegal_adjusted, col="blue")
+
+cor(uscrime$property, legal_adjusted)
+
+summary(propertylegal_adjusted)
+
+```
+
+After adjusting for legal immigration's impact on the US population, the result becomes significant. The p-value is 0.018. This chart shows another positive, linear relationship. The strength is weak-to-moderate, as there's a correlation of 0.32.
+
+What would happen if we removed the 1990 and 1991 data again? Let's see.
+
+```{r}
+
+propertylegal_adjusted2 <- (lm(legal_adjusted2 ~ uscrime2$property))
+
+plot(uscrime2$property, legal_adjusted2, xlab ="Property crime incidents", ylab ="Immigrants as proportion")
+
+abline(propertylegal_adjusted2, col="blue")
+
+cor(uscrime2$property, legal_adjusted2)
+
+summary(propertylegal_adjusted2)
+
+```
+
+Removing those two years (and the associated data) drops the correlation to 0.21 and makes the result no longer statistically significant. The p-value is now 0.13. Is it fair to remove this data? Perhaps not, but it's worth noting that removing just two observations from an original dataset of 55 changes the p-value significantly. 
+
