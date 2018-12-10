@@ -1,3 +1,5 @@
+
+
 ### More Data
 
 Now let's look at the association between illegal immigration and crime rates from 1990-2014.
@@ -6,11 +8,26 @@ We'll start by analyzing violent crime rates.
 
 ```{r}
 
+# datasets needed and names assigned
+
+uscrime <- read.csv("USCrime.csv")
+
+illegal <- read.csv("illegal.csv")
+
+usapop <- read.csv("usapop.csv")
+
+usapop <- setNames(usapop, c("date", "uspop"))
+
+uscrime <- setNames(uscrime, c("year", "population", "violent", "property", "violent_percentage", "pre"))
+
 illegal <- setNames(illegal, c("illegal_year", "illegal_pop"))
+
+# the following makes it so that we don't have abbreviated numbers showing in the x and y axes.
+
+options(scipen = 999)
 
 # I now have to shorten the vector because we're only looking at 1990-2014 now
 # The name below refers to 19-ninety, the year we begin
-
 
 ninetyviolentcrime <- c(uscrime$violent[31:55])
 

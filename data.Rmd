@@ -1,6 +1,19 @@
+
+
 ### Data
 
 ```{r}
+
+#datasets needed
+
+uscrime <- read.csv("USCrime.csv")
+
+legal <- read.csv("legal.csv")
+
+# the following makes it so that we don't have abbreviated numbers showing in the x and y axes.
+
+options(scipen = 999)
+
 # set names for columns
 uscrime <- setNames(uscrime, c("year", "population", "violent", "property", "violent_percentage", "pre"))
 

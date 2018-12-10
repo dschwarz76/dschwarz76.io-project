@@ -1,3 +1,5 @@
+
+
 ### Even More Data
 
 Lastly, let's look at the relationship between crime rates and the number of refugees entering the United States from 1975-2014. 
@@ -6,9 +8,29 @@ Again, we'll begin by looking at violent crime rates.
 
 ```{r}
 
-# Now looking at refugee data, 1975-2014
+#load data again
+
+legal <- read.csv("legal.csv")
+
+uscrime <- read.csv("USCrime.csv")
+
+refugee <- read.csv("refugee.csv")
+
+usapop <- read.csv("usapop.csv")
+
+legal <- setNames(legal, c("immi_year", "immi_pop", "immi_percent", "pre2"))
+
+usapop <- setNames(usapop, c("date", "uspop"))
+
+uscrime <- setNames(uscrime, c("year", "population", "violent", "property", "violent_percentage", "pre"))
 
 refugee <- setNames(refugee, c("refugee_year", "refugee_pop"))
+
+# the following makes it so that we don't have abbreviated numbers showing in the x and y axes.
+
+options(scipen = 999)
+
+# Now looking at refugee data, 1975-2014
 
 seventyfiveviolentcrime <- c(uscrime$violent[16:55])
 
