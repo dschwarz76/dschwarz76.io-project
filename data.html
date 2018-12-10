@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Introduction</a>
+</li>
+<li>
+  <a href="strategy.html">Strategy</a>
+</li>
+<li>
+  <a href="data.html">Data</a>
+</li>
+<li>
+  <a href="moredata.html">More Data</a>
+</li>
+<li>
+  <a href="evenmoredata.html">Even More Data</a>
+</li>
+<li>
+  <a href="conclusions.html">Conclusions</a>
+</li>
+<li>
+  <a href="sources.html">Sources</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="data" class="section level3">
+<h3>Data</h3>
+<pre class="r"><code># set names for columns
+uscrime &lt;- setNames(uscrime, c(&quot;year&quot;, &quot;population&quot;, &quot;violent&quot;, &quot;property&quot;, &quot;violent_percentage&quot;, &quot;pre&quot;))
+
+legal &lt;- setNames(legal, c(&quot;immi_year&quot;, &quot;immi_pop&quot;, &quot;immi_percent&quot;, &quot;pre2&quot;))</code></pre>
+<p>Let’s first look at crime rates in the United States from 1960-2014. Why? Because it’s fun! It’s also going to give us a sense of how violent crime and property crime were measured over that time period.</p>
+<pre class="r"><code>plot(uscrime$year,uscrime$violent, main= &quot;Incidents of Violent Crime per 100,000 people&quot;, 
+     xlab= &quot;Year&quot;, ylab= &quot;Violent Crime&quot;) </code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>plot(uscrime$year,uscrime$property, main= &quot;Incidents of Property Crime per 100,000 people&quot;, 
+     xlab= &quot;Year&quot;, ylab= &quot;Property Crime&quot;) </code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<p>Now onto the comparisons. Let’s analyze legal immigration and its relationship to crime rates. These legal immigration statistics refer to the number of people who legally entered the United States in a given year.</p>
+<pre class="r"><code>violentlegal &lt;- (lm(legal$immi_pop ~ uscrime$violent))
+
+plot(uscrime$violent, legal$immi_pop, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
+
+abline(violentlegal, col=&quot;blue&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>summary(violentlegal)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = legal$immi_pop ~ uscrime$violent)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -401854 -238967  -89972  288004  786900 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value  Pr(&gt;|t|)    
+## (Intercept)       157254     125297   1.255     0.215    
+## uscrime$violent     1164        251   4.637 0.0000235 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 297400 on 53 degrees of freedom
+## Multiple R-squared:  0.2886, Adjusted R-squared:  0.2752 
+## F-statistic:  21.5 on 1 and 53 DF,  p-value: 0.00002347</code></pre>
+<pre class="r"><code>cor(uscrime$violent, legal$immi_pop)</code></pre>
+<pre><code>## [1] 0.5372411</code></pre>
+<p>Above we see the association between violent crime and legal immigration. The regression line shows a positive, linear relationship. There’s moderate-to-strong strength between these two variables. The correlation is 0.54. The p-value is a very small 0.000023, which shows a statistically significant result. This means that this relationship has a very small chance of occurring by chance.</p>
+<pre class="r"><code># Adding another dataset here. This shows the total population of the United States on an annual basis. I&#39;m using this as my denominator when seeing how big of a proportion -- year by year -- an immigration category is of the overall US population.
+
+usapop &lt;- read.csv(&quot;usapop.csv&quot;)
+
+usapop &lt;- setNames(usapop, c(&quot;date&quot;, &quot;uspop&quot;))
+
+# Now I&#39;ll be comparing the violent crime rate to legal immigration, with legal immigration as a proportion of the overall US population. 
+
+legal_adjusted &lt;- c(legal$immi_pop)/c(usapop$uspop)
+
+violentlegal_adjusted &lt;- (lm(legal_adjusted ~ uscrime$violent))
+
+plot(uscrime$violent, legal_adjusted, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
+
+abline(violentlegal_adjusted, col=&quot;blue&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>cor(uscrime$violent, legal_adjusted)</code></pre>
+<pre><code>## [1] 0.5920302</code></pre>
+<pre class="r"><code>summary(violentlegal_adjusted)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = legal_adjusted ~ uscrime$violent)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -0.0013088 -0.0006694 -0.0001152  0.0007546  0.0033083 
+## 
+## Coefficients:
+##                     Estimate   Std. Error t value   Pr(&gt;|t|)    
+## (Intercept)     0.0008277914 0.0003797158   2.180     0.0337 *  
+## uscrime$violent 0.0000040677 0.0000007606   5.348 0.00000193 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.0009014 on 53 degrees of freedom
+## Multiple R-squared:  0.3505, Adjusted R-squared:  0.3382 
+## F-statistic:  28.6 on 1 and 53 DF,  p-value: 0.000001928</code></pre>
+<p>After adjusting for the impact that legal immigration had on the United States population, the correlation becomes a little bit stronger. The correlation between legal immigration and violent crime incidents is now 0.59, and again there is a positive, linear correlation. The p-value is a tiny 0.0000019, which shows a statistically signficant result.</p>
+<p>I’m curious to see what the results would be if we removed the two observations in the upper right corner. What would the correlation be then?</p>
+<pre class="r"><code># I removed data from 1990 and 1991 and reloaded the files.
+
+legal2 &lt;- read.csv(&quot;legal2.csv&quot;)
+
+legal2 &lt;- setNames(legal2, c(&quot;immi_year&quot;, &quot;immi_pop&quot;, &quot;immi_percent&quot;, &quot;pre2&quot;))
+
+usapop2 &lt;- read.csv(&quot;usapop2.csv&quot;)
+
+usapop2 &lt;- setNames(usapop2, c(&quot;date&quot;, &quot;uspop&quot;))
+
+uscrime2 &lt;- read.csv(&quot;USCrime2.csv&quot;)
+
+uscrime2 &lt;- setNames(uscrime2, c(&quot;year&quot;, &quot;population&quot;, &quot;violent&quot;, &quot;property&quot;, &quot;violent_percentage&quot;, &quot;pre&quot;))
+
+legal_adjusted2 &lt;- c(legal2$immi_pop)/c(usapop2$uspop)
+
+violentlegal_adjusted2 &lt;- (lm(legal_adjusted2 ~ uscrime2$violent))
+
+plot(uscrime2$violent, legal_adjusted2, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
+
+abline(violentlegal_adjusted2, col=&quot;blue&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>cor(uscrime2$violent, legal_adjusted2)</code></pre>
+<pre><code>## [1] 0.537407</code></pre>
+<pre class="r"><code>summary(violentlegal_adjusted2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = legal_adjusted2 ~ uscrime2$violent)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -0.0010913 -0.0005160 -0.0002779  0.0006669  0.0015940 
+## 
+## Coefficients:
+##                      Estimate   Std. Error t value  Pr(&gt;|t|)    
+## (Intercept)      0.0013148526 0.0002983005   4.408 0.0000539 ***
+## uscrime2$violent 0.0000027842 0.0000006118   4.551 0.0000334 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.0006844 on 51 degrees of freedom
+## Multiple R-squared:  0.2888, Adjusted R-squared:  0.2749 
+## F-statistic: 20.71 on 1 and 51 DF,  p-value: 0.00003335</code></pre>
+<p>Removing those two observations – which were large residuals – actually lowered the correlation back to 0.54. I guess those were pulling the slope closer to 1.</p>
+<p>Now let’s look at the relationship between legal immigration and property crime.</p>
+<pre class="r"><code>propertylegal &lt;- (lm(legal$immi_pop ~ uscrime$property))
+
+plot(uscrime$property, legal$immi_pop, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
+
+abline(propertylegal, col=&quot;blue&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>summary(propertylegal)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = legal$immi_pop ~ uscrime$property)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -400232 -286539 -177640  325093 1023190 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)      432066.00  179289.25   2.410   0.0195 *
+## uscrime$property     72.24      45.38   1.592   0.1174  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 344500 on 53 degrees of freedom
+## Multiple R-squared:  0.04563,    Adjusted R-squared:  0.02762 
+## F-statistic: 2.534 on 1 and 53 DF,  p-value: 0.1174</code></pre>
+<pre class="r"><code>cor(uscrime$property, legal$immi_pop)</code></pre>
+<pre><code>## [1] 0.2136083</code></pre>
+<p>While there’s still a positive, linear relationship, the strength of the correlation is weak here. The correlation is 0.21. The p-value is 0.12 so these results do not show a statistically significant relationship.</p>
+<pre class="r"><code>propertylegal_adjusted &lt;- (lm(legal_adjusted ~ uscrime$property))
+
+plot(uscrime$property, legal_adjusted, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
+
+abline(propertylegal_adjusted, col=&quot;blue&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>cor(uscrime$property, legal_adjusted)</code></pre>
+<pre><code>## [1] 0.3177849</code></pre>
+<pre class="r"><code>summary(propertylegal_adjusted)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = legal_adjusted ~ uscrime$property)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -0.0014093 -0.0006836 -0.0004645  0.0008020  0.0040171 
+## 
+## Coefficients:
+##                      Estimate   Std. Error t value Pr(&gt;|t|)  
+## (Intercept)      0.0014510528 0.0005518915   2.629   0.0112 *
+## uscrime$property 0.0000003409 0.0000001397   2.440   0.0181 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.00106 on 53 degrees of freedom
+## Multiple R-squared:  0.101,  Adjusted R-squared:  0.08402 
+## F-statistic: 5.954 on 1 and 53 DF,  p-value: 0.01807</code></pre>
+<p>After adjusting for legal immigration’s impact on the US population, the result becomes significant. The p-value is 0.018. This chart shows another positive, linear relationship. The strength is weak-to-moderate, as there’s a correlation of 0.32.</p>
+<p>What would happen if we removed the 1990 and 1991 data again? Let’s see.</p>
+<pre class="r"><code>propertylegal_adjusted2 &lt;- (lm(legal_adjusted2 ~ uscrime2$property))
+
+plot(uscrime2$property, legal_adjusted2, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
+
+abline(propertylegal_adjusted2, col=&quot;blue&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>cor(uscrime2$property, legal_adjusted2)</code></pre>
+<pre><code>## [1] 0.2124711</code></pre>
+<pre class="r"><code>summary(propertylegal_adjusted2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = legal_adjusted2 ~ uscrime2$property)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -0.0010605 -0.0007176 -0.0002830  0.0007117  0.0017105 
+## 
+## Coefficients:
+##                       Estimate   Std. Error t value  Pr(&gt;|t|)    
+## (Intercept)       0.0019728668 0.0004202924   4.694 0.0000205 ***
+## uscrime2$property 0.0000001673 0.0000001078   1.553     0.127    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.0007931 on 51 degrees of freedom
+## Multiple R-squared:  0.04514,    Adjusted R-squared:  0.02642 
+## F-statistic: 2.411 on 1 and 51 DF,  p-value: 0.1267</code></pre>
+<p>Removing those two years (and the associated data) drops the correlation to 0.21 and makes the result no longer statistically significant. The p-value is now 0.13. Is it fair to remove this data? Perhaps not, but it’s worth noting that removing just two observations from an original dataset of 55 changes the p-value significantly.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

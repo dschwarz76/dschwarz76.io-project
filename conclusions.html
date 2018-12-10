@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Introduction</a>
+</li>
+<li>
+  <a href="strategy.html">Strategy</a>
+</li>
+<li>
+  <a href="data.html">Data</a>
+</li>
+<li>
+  <a href="moredata.html">More Data</a>
+</li>
+<li>
+  <a href="evenmoredata.html">Even More Data</a>
+</li>
+<li>
+  <a href="conclusions.html">Conclusions</a>
+</li>
+<li>
+  <a href="sources.html">Sources</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="conclusions" class="section level3">
+<h3>Conclusions</h3>
+<p>Now that we’ve gone through the data, let’s take a step back to interpret our results and look at the patterns that have emerged.</p>
+<p>For both legal immigration and refugee immigration, there were positive, linear associations between these variables and violent and property crime rates in the United States. For illegal immigration, there were negative, linear associations across all of the comparisons. What can we make of this?</p>
+<p>The simplistic - and likely wrong - interpretation is that legal and refugee immigration result in higher crime rates, but illegal immigration results in lower crime rates.</p>
+<p>But why might this be an incorrect interpretation, especially since almost every comparison was statistically significant? (The only relationship that wasn’t significant was between legal immigration and property crime.) Well, just because something is statistically significant doesn’t mean that it is meaningful. When an association is statistically significant, it says that there’s probably a real world explanation for the relationship, but it doesn’t measure the magnitude of the effect, and it’s very hard to isolate exactly what is causing that effect. Therefore, it would be irresponsible to conclude that legal immigration or refugee immigration actually increases crime, and that illegal immigration actually decreases crime.</p>
+<p>Also, we must be aware that there are a lot of factors - and lurking variables - that could influence crime rates besides immigration. The fact that legal immigration and refugee immigration had positive relationships with crime could be due to broader trends. Perhaps something was going on in the United States that led to both higher crime and higher immigration. For example, maybe a bad economy leads to higher crime, and a bad economy may also lead to the government boosting its immigration numbers to spark economic growth. Similarly, it is possible that the negative relationship between crime and illegal immigration is due some other quirk: perhaps the United States is a more desirable destination for illegal immigrants when crime is low, as they flee more dangerous societies. In this case, the crime causes the immigration, and not the other way around.</p>
+<p>It’s also important to point out caveats in regards to the illegal immigration numbers we used. First of all, there was annual data from 2005 to 2014 in that data set, but only observations in five year increments prior to 2005. Therefore, it made sense to interpolate using a straight line method. Filling in the gaps – while sensible – makes the data less reliable. Also, while the legal immigration and refugee immigration data is exact – and fastidiously recorded by the government – the illegal immigration numbers are merely estimates. The shape of how illegal immigrants have entered the country is inexact, as are the raw totals. The fact that undocumented people are difficult to measure is another reason to question those results.</p>
+<p>Nevertheless, the fear about illegal immigrants bringing crime seems unfounded. My hypothesis that illegal immigration wouldn’t increase crime is supported by the evidence. This is also true for some of the property crime data in association with legal immigration. Conversely, my hypothesis that legal immigration wouldn’t affect the violent crime rate, or that refugee immigration wouldn’t affect either crime rates, is not a conclusion to be drawn. We cannot accept the null hypothesis that there is no relationship between crime and those immigration types.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

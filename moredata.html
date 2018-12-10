@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Introduction</a>
+</li>
+<li>
+  <a href="strategy.html">Strategy</a>
+</li>
+<li>
+  <a href="data.html">Data</a>
+</li>
+<li>
+  <a href="moredata.html">More Data</a>
+</li>
+<li>
+  <a href="evenmoredata.html">Even More Data</a>
+</li>
+<li>
+  <a href="conclusions.html">Conclusions</a>
+</li>
+<li>
+  <a href="sources.html">Sources</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="more-data" class="section level3">
+<h3>More Data</h3>
+<p>Now let’s look at the association between illegal immigration and crime rates from 1990-2014.</p>
+<p>We’ll start by analyzing violent crime rates.</p>
+<pre class="r"><code># datasets needed and names assigned
+
+uscrime &lt;- read.csv(&quot;USCrime.csv&quot;)
+
+illegal &lt;- read.csv(&quot;illegal.csv&quot;)
+
+usapop &lt;- read.csv(&quot;usapop.csv&quot;)
+
+usapop &lt;- setNames(usapop, c(&quot;date&quot;, &quot;uspop&quot;))
+
+uscrime &lt;- setNames(uscrime, c(&quot;year&quot;, &quot;population&quot;, &quot;violent&quot;, &quot;property&quot;, &quot;violent_percentage&quot;, &quot;pre&quot;))
+
+illegal &lt;- setNames(illegal, c(&quot;illegal_year&quot;, &quot;illegal_pop&quot;))
+
+# the following makes it so that we don&#39;t have abbreviated numbers showing in the x and y axes.
+
+options(scipen = 999)
+
+# I now have to shorten the vector because we&#39;re only looking at 1990-2014 now
+# The name below refers to 19-ninety, the year we begin
+
+ninetyviolentcrime &lt;- c(uscrime$violent[31:55])
+
+
+violentillegal &lt;- (lm(illegal$illegal_pop ~ ninetyviolentcrime))
+
+plot(ninetyviolentcrime, illegal$illegal_pop, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
+
+abline(violentillegal, col=&quot;blue&quot;)</code></pre>
+<p><img src="moredata_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>summary(violentillegal)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = illegal$illegal_pop ~ ninetyviolentcrime)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -4905689  -648815   326753   738313  2564961 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value          Pr(&gt;|t|)    
+## (Intercept)        22069085    1437890   15.35 0.000000000000141 ***
+## ninetyviolentcrime   -26355       2607  -10.11 0.000000000622179 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1657000 on 23 degrees of freedom
+## Multiple R-squared:  0.8163, Adjusted R-squared:  0.8083 
+## F-statistic: 102.2 on 1 and 23 DF,  p-value: 0.0000000006222</code></pre>
+<pre class="r"><code>cor(ninetyviolentcrime, illegal$illegal_pop)</code></pre>
+<pre><code>## [1] -0.903492</code></pre>
+<p>Wow! The correlation between illegal immigration and violent crime is -0.90. That’s a very strong relationship, and this time the relationship is linear and negative. The p-value is a miniscule 0.00000000062.</p>
+<p>What happens when we adjust for illegal immigration’s impact on the greater US population?</p>
+<pre class="r"><code>illegal_adjusted &lt;- c(illegal$illegal_pop)/c(usapop$uspop[31:55])
+
+violentillegal_adjusted &lt;- (lm(illegal_adjusted ~ ninetyviolentcrime))
+
+plot(ninetyviolentcrime, illegal_adjusted, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
+
+abline(violentillegal_adjusted, col=&quot;blue&quot;)</code></pre>
+<p><img src="moredata_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>cor(ninetyviolentcrime, illegal_adjusted)</code></pre>
+<pre><code>## [1] -0.8800959</code></pre>
+<pre class="r"><code>summary(violentillegal_adjusted)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = illegal_adjusted ~ ninetyviolentcrime)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.015924 -0.003132  0.001128  0.003063  0.008387 
+## 
+## Coefficients:
+##                        Estimate   Std. Error t value          Pr(&gt;|t|)    
+## (Intercept)         0.069681315  0.004940536   14.10 0.000000000000825 ***
+## ninetyviolentcrime -0.000079627  0.000008957   -8.89 0.000000006707470 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.005693 on 23 degrees of freedom
+## Multiple R-squared:  0.7746, Adjusted R-squared:  0.7648 
+## F-statistic: 79.03 on 1 and 23 DF,  p-value: 0.000000006707</code></pre>
+<p>There’s still a negative, linear relationship here. The strength is strong. The correlation didn’t change much. It just dipped slightly to -0.88, and the p-value is still a tiny 0.0000000067.</p>
+<p>What happens when we look at illegal immigration and property crime?</p>
+<pre class="r"><code>ninetypropertycrime &lt;- c(uscrime$property[31:55])
+
+
+propertyillegal &lt;- (lm(illegal$illegal_pop ~ ninetypropertycrime))
+
+plot(ninetypropertycrime, illegal$illegal_pop, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
+
+abline(propertyillegal, col=&quot;blue&quot;)</code></pre>
+<p><img src="moredata_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>summary(propertyillegal)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = illegal$illegal_pop ~ ninetypropertycrime)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -4623544  -946716   210080  1371676  2143267 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value          Pr(&gt;|t|)    
+## (Intercept)         24455430.8  1729389.7  14.141 0.000000000000782 ***
+## ninetypropertycrime    -4394.7      450.7  -9.751 0.000000001228011 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1706000 on 23 degrees of freedom
+## Multiple R-squared:  0.8052, Adjusted R-squared:  0.7967 
+## F-statistic: 95.08 on 1 and 23 DF,  p-value: 0.000000001228</code></pre>
+<pre class="r"><code>cor(ninetypropertycrime, illegal$illegal_pop)</code></pre>
+<pre><code>## [1] -0.8973372</code></pre>
+<p>Interesting. As it relates to illegal immigration, the property crime data looks very similar to the violent crime data. There’s a strong, negative, linear relationship. The correlation is -0.90. The p-value is 0.0000000012.</p>
+<p>Let’s see what happens when we look at illegal immigration as it relates to property crime, this time adjusting for population impact.</p>
+<pre class="r"><code>propertyillegal_adjusted &lt;- (lm(illegal_adjusted ~ ninetypropertycrime))
+
+plot(ninetypropertycrime, illegal_adjusted, xlab =&quot;Preoperty crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
+
+abline(propertyillegal_adjusted, col=&quot;blue&quot;)</code></pre>
+<p><img src="moredata_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>cor(ninetypropertycrime, illegal_adjusted)</code></pre>
+<pre><code>## [1] -0.865451</code></pre>
+<pre class="r"><code>summary(propertyillegal_adjusted)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = illegal_adjusted ~ ninetypropertycrime)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.015069 -0.003023  0.001124  0.004710  0.007177 
+## 
+## Coefficients:
+##                         Estimate   Std. Error t value         Pr(&gt;|t|)    
+## (Intercept)          0.076397111  0.006088984  12.547 0.00000000000904 ***
+## ninetypropertycrime -0.000013147  0.000001587  -8.285 0.00000002342079 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.006007 on 23 degrees of freedom
+## Multiple R-squared:  0.749,  Adjusted R-squared:  0.7381 
+## F-statistic: 68.64 on 1 and 23 DF,  p-value: 0.00000002342</code></pre>
+<p>That adjustment didn’t have much of an impact. The attributes of the relationship remain the same. The correlation lessens slightly but is still a strong -0.87, with a p-value of 0.000000023.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Introduction</a>
+</li>
+<li>
+  <a href="strategy.html">Strategy</a>
+</li>
+<li>
+  <a href="data.html">Data</a>
+</li>
+<li>
+  <a href="moredata.html">More Data</a>
+</li>
+<li>
+  <a href="evenmoredata.html">Even More Data</a>
+</li>
+<li>
+  <a href="conclusions.html">Conclusions</a>
+</li>
+<li>
+  <a href="sources.html">Sources</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="even-more-data" class="section level3">
+<h3>Even More Data</h3>
+<p>Lastly, let’s look at the relationship between crime rates and the number of refugees entering the United States from 1975-2014.</p>
+<p>Again, we’ll begin by looking at violent crime rates.</p>
+<pre class="r"><code>#load data again
+
+legal &lt;- read.csv(&quot;legal.csv&quot;)
+
+uscrime &lt;- read.csv(&quot;USCrime.csv&quot;)
+
+refugee &lt;- read.csv(&quot;refugee.csv&quot;)
+
+usapop &lt;- read.csv(&quot;usapop.csv&quot;)
+
+legal &lt;- setNames(legal, c(&quot;immi_year&quot;, &quot;immi_pop&quot;, &quot;immi_percent&quot;, &quot;pre2&quot;))
+
+usapop &lt;- setNames(usapop, c(&quot;date&quot;, &quot;uspop&quot;))
+
+uscrime &lt;- setNames(uscrime, c(&quot;year&quot;, &quot;population&quot;, &quot;violent&quot;, &quot;property&quot;, &quot;violent_percentage&quot;, &quot;pre&quot;))
+
+refugee &lt;- setNames(refugee, c(&quot;refugee_year&quot;, &quot;refugee_pop&quot;))
+
+# the following makes it so that we don&#39;t have abbreviated numbers showing in the x and y axes.
+
+options(scipen = 999)
+
+# Now looking at refugee data, 1975-2014
+
+seventyfiveviolentcrime &lt;- c(uscrime$violent[16:55])
+
+
+violentrefugee &lt;- (lm(refugee$refugee_pop ~ seventyfiveviolentcrime))
+
+plot(seventyfiveviolentcrime, refugee$refugee_pop, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
+
+abline(violentrefugee, col=&quot;blue&quot;)</code></pre>
+<p><img src="evenmoredata_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>summary(violentrefugee)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = refugee$refugee_pop ~ seventyfiveviolentcrime)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -46132 -20836  -4440  10802 117763 
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)             -25688.92   26945.50  -0.953 0.346430    
+## seventyfiveviolentcrime    192.83      48.44   3.981 0.000299 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 32920 on 38 degrees of freedom
+## Multiple R-squared:  0.2943, Adjusted R-squared:  0.2758 
+## F-statistic: 15.85 on 1 and 38 DF,  p-value: 0.0002986</code></pre>
+<pre class="r"><code>cor(seventyfiveviolentcrime, refugee$refugee_pop)</code></pre>
+<pre><code>## [1] 0.5425211</code></pre>
+<p>The association between refugees gaining immigration status and the violent crime rate is linear, positive, and with moderate-to-strong strength. The correlation is 0.54 and the p-value is 0.00030. This is a significant result.</p>
+<p>Let’s see what happens when we make the population adjustment.</p>
+<pre class="r"><code>refugee_adjusted &lt;- c(refugee$refugee_pop)/c(usapop$uspop[16:55])
+
+violentrefugee_adjusted &lt;- (lm(refugee_adjusted ~ seventyfiveviolentcrime))
+
+plot(seventyfiveviolentcrime, refugee_adjusted, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
+
+abline(violentrefugee_adjusted, col=&quot;blue&quot;)</code></pre>
+<p><img src="evenmoredata_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>cor(seventyfiveviolentcrime, refugee_adjusted)</code></pre>
+<pre><code>## [1] 0.5442698</code></pre>
+<pre class="r"><code>summary(violentrefugee_adjusted)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = refugee_adjusted ~ seventyfiveviolentcrime)
+## 
+## Residuals:
+##         Min          1Q      Median          3Q         Max 
+## -0.00017002 -0.00008863 -0.00003147  0.00001821  0.00055712 
+## 
+## Coefficients:
+##                              Estimate    Std. Error t value Pr(&gt;|t|)    
+## (Intercept)             -0.0001711954  0.0001225406  -1.397 0.170504    
+## seventyfiveviolentcrime  0.0000008809  0.0000002203   3.999 0.000283 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.0001497 on 38 degrees of freedom
+## Multiple R-squared:  0.2962, Adjusted R-squared:  0.2777 
+## F-statistic: 15.99 on 1 and 38 DF,  p-value: 0.0002829</code></pre>
+<p>These results are very similar to the results without adjusting for population impact. Again, there is a positive, linear, moderate-to-strong relationship. The correlation remains 0.54. The p-value is virtually unchanged, and now sits at 0.00028.</p>
+<p>In fact, these results also remind me of the first regression analysis in this project, the one comparing violent crime to legal immigration. I’m curious if there’s an interaction between refugee immigration and legal immigration in association with violent crime.</p>
+<pre class="r"><code>summary(lm(seventyfiveviolentcrime ~ legal$immi_pop[16:55] * refugee$refugee_pop))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = seventyfiveviolentcrime ~ legal$immi_pop[16:55] * 
+##     refugee$refugee_pop)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -138.89  -38.76   -6.34   65.45  121.98 
+## 
+## Coefficients:
+##                                                   Estimate
+## (Intercept)                               731.997056069169
+## legal$immi_pop[16:55]                      -0.000422417767
+## refugee$refugee_pop                        -0.001982313788
+## legal$immi_pop[16:55]:refugee$refugee_pop   0.000000004930
+##                                                 Std. Error t value
+## (Intercept)                                82.026742651654   8.924
+## legal$immi_pop[16:55]                       0.000101940595  -4.144
+## refugee$refugee_pop                         0.000788208578  -2.515
+## legal$immi_pop[16:55]:refugee$refugee_pop   0.000000001017   4.847
+##                                                 Pr(&gt;|t|)    
+## (Intercept)                               0.000000000119 ***
+## legal$immi_pop[16:55]                           0.000198 ***
+## refugee$refugee_pop                             0.016510 *  
+## legal$immi_pop[16:55]:refugee$refugee_pop 0.000023989836 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 73.46 on 36 degrees of freedom
+## Multiple R-squared:  0.5796, Adjusted R-squared:  0.5445 
+## F-statistic: 16.54 on 3 and 36 DF,  p-value: 0.0000006386</code></pre>
+<p>After running a test, we see that the effect of being a refugee is 0.0000000049 point higher for violent crime for each additional unit of legal immigration.</p>
+<p>Now let’s look at property crime in regards to refugee immigration.</p>
+<pre class="r"><code>seventyfivepropertycrime &lt;- c(uscrime$property[16:55])
+
+
+propertyrefugee &lt;- (lm(refugee$refugee_pop ~ seventyfivepropertycrime))
+
+plot(seventyfivepropertycrime, refugee$refugee_pop, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
+
+abline(propertyrefugee, col=&quot;blue&quot;)</code></pre>
+<p><img src="evenmoredata_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>summary(propertyrefugee)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = refugee$refugee_pop ~ seventyfivepropertycrime)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -69723 -19412   3603  21206  99238 
+## 
+## Coefficients:
+##                            Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)              -21816.987  27358.872  -0.797 0.430152    
+## seventyfivepropertycrime     24.227      6.415   3.777 0.000544 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 33420 on 38 degrees of freedom
+## Multiple R-squared:  0.2729, Adjusted R-squared:  0.2538 
+## F-statistic: 14.26 on 1 and 38 DF,  p-value: 0.0005444</code></pre>
+<pre class="r"><code>cor(seventyfivepropertycrime, refugee$refugee_pop)</code></pre>
+<pre><code>## [1] 0.5224129</code></pre>
+<p>The relationship between property crime and refugee immigration is positive, linear, and has moderate-to-strong strength. The correlation is 0.52 and the p-value is 0.00054.</p>
+<p>Lastly, let’s see what happens when we look at the same relationship, adjusting for population impact.</p>
+<pre class="r"><code>propertyrefugee_adjusted &lt;- (lm(refugee_adjusted ~ seventyfivepropertycrime))
+
+plot(seventyfivepropertycrime, refugee_adjusted, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
+
+abline(propertyrefugee_adjusted, col=&quot;blue&quot;)</code></pre>
+<p><img src="evenmoredata_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>cor(seventyfivepropertycrime, refugee_adjusted)</code></pre>
+<pre><code>## [1] 0.6233749</code></pre>
+<pre class="r"><code>summary(propertyrefugee_adjusted)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = refugee_adjusted ~ seventyfivepropertycrime)
+## 
+## Residuals:
+##         Min          1Q      Median          3Q         Max 
+## -0.00027400 -0.00007348  0.00000380  0.00006569  0.00044799 
+## 
+## Coefficients:
+##                                Estimate     Std. Error t value  Pr(&gt;|t|)
+## (Intercept)              -0.00024124186  0.00011424811  -2.112    0.0414
+## seventyfivepropertycrime  0.00000013165  0.00000002679   4.914 0.0000173
+##                             
+## (Intercept)              *  
+## seventyfivepropertycrime ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.0001396 on 38 degrees of freedom
+## Multiple R-squared:  0.3886, Adjusted R-squared:  0.3725 
+## F-statistic: 24.15 on 1 and 38 DF,  p-value: 0.00001734</code></pre>
+<p>Unsurprisingly, there is a linear, positive relationship again. However, the association became stronger. The correlation is 0.62. The p-value remains small: 0.00001734.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
