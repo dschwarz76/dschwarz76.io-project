@@ -6,27 +6,12 @@ author: "David Schwarz"
 date: "December 7, 2018"
 output: html_document
 
+library(knitr)
+knit2html('./myNotes.Rmd')
+
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 
-
-# The four main datasets are 
-# USCrime ; legal ; illegal ; refugee
-
-uscrime <- read.csv("USCrime.csv")
-
-legal <- read.csv("legal.csv")
-
-illegal <- read.csv("illegal.csv")
-
-refugee <- read.csv("refugee.csv")
-
-# the following makes it so that we don't have abbreviated numbers showing in the x and y axes.
-
-options(scipen = 999)
-```
 
 ## Introduction
 

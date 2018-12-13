@@ -1,3 +1,5 @@
+
+
 ### Strategy
 
 My analytical strategy is to do a regression analysis between pairs of variables. I'll plot relationships, look for measures of correlation, and later analyze the results. 

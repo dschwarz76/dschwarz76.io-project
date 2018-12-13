@@ -1,11 +1,27 @@
+
+
 ### Sources
 
-US crime rates: https://www.ucrdatatool.gov/Search/Crime/State/StatebyState.cfm
+US crime rates: 
 
-Legal immigration data: https://www.dhs.gov/immigration-statistics/yearbook/2017/table1
+https://www.ucrdatatool.gov/Search/Crime/State/StatebyState.cfm
 
-Unauthorized (illegal) immigration data: https://www.statista.com/statistics/646261/unauthorized-immigrant-population-in-the-us/
 
-Refugee immigration data: http://www.wrapsnet.org/admissions-and-arrivals/
+Legal immigration data: 
 
-United States population data: https://fred.stlouisfed.org/series/POPTOTUSA647NWDB
+https://www.dhs.gov/immigration-statistics/yearbook/2017/table1
+
+
+Unauthorized (illegal) immigration data:
+
+https://www.statista.com/statistics/646261/unauthorized-immigrant-population-in-the-us/
+
+
+Refugee immigration data: 
+
+http://www.wrapsnet.org/admissions-and-arrivals/
+
+
+United States population data: 
+
+https://fred.stlouisfed.org/series/POPTOTUSA647NWDB
