@@ -221,60 +221,6 @@ $(document).ready(function () {
 <h3>Even More Data</h3>
 <p>Lastly, let’s look at the relationship between crime rates and the number of refugees entering the United States from 1975-2014.</p>
 <p>Again, we’ll begin by looking at violent crime rates.</p>
-<pre class="r"><code>#load data again
-
-legal &lt;- read.csv(&quot;legal.csv&quot;)
-
-uscrime &lt;- read.csv(&quot;USCrime.csv&quot;)
-
-refugee &lt;- read.csv(&quot;refugee.csv&quot;)
-
-usapop &lt;- read.csv(&quot;usapop.csv&quot;)
-
-legal &lt;- setNames(legal, c(&quot;immi_year&quot;, &quot;immi_pop&quot;, &quot;immi_percent&quot;, &quot;pre2&quot;))
-
-usapop &lt;- setNames(usapop, c(&quot;date&quot;, &quot;uspop&quot;))
-
-uscrime &lt;- setNames(uscrime, c(&quot;year&quot;, &quot;population&quot;, &quot;violent&quot;, &quot;property&quot;, &quot;violent_percentage&quot;, &quot;pre&quot;))
-
-refugee &lt;- setNames(refugee, c(&quot;refugee_year&quot;, &quot;refugee_pop&quot;))
-
-# the following makes it so that we don&#39;t have abbreviated numbers showing in the x and y axes.
-
-options(scipen = 999)
-
-# Now looking at refugee data, 1975-2014
-
-seventyfiveviolentcrime &lt;- c(uscrime$violent[16:55])
-
-
-violentrefugee &lt;- (lm(refugee$refugee_pop ~ seventyfiveviolentcrime))
-
-plot(seventyfiveviolentcrime, refugee$refugee_pop, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
-
-abline(violentrefugee, col=&quot;blue&quot;)</code></pre>
-<p><img src="evenmoredata_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<pre class="r"><code>summary(violentrefugee)</code></pre>
-<pre><code>## 
-## Call:
-## lm(formula = refugee$refugee_pop ~ seventyfiveviolentcrime)
-## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -46132 -20836  -4440  10802 117763 
-## 
-## Coefficients:
-##                          Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)             -25688.92   26945.50  -0.953 0.346430    
-## seventyfiveviolentcrime    192.83      48.44   3.981 0.000299 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 32920 on 38 degrees of freedom
-## Multiple R-squared:  0.2943, Adjusted R-squared:  0.2758 
-## F-statistic: 15.85 on 1 and 38 DF,  p-value: 0.0002986</code></pre>
-<pre class="r"><code>cor(seventyfiveviolentcrime, refugee$refugee_pop)</code></pre>
-<pre><code>## [1] 0.5425211</code></pre>
 <p>The association between refugees gaining immigration status and the violent crime rate is linear, positive, and with moderate-to-strong strength. The correlation is 0.54 and the p-value is 0.00030. This is a significant result.</p>
 <p>Let’s see what happens when we make the population adjustment.</p>
 <pre class="r"><code>refugee_adjusted &lt;- c(refugee$refugee_pop)/c(usapop$uspop[16:55])
@@ -284,7 +230,7 @@ violentrefugee_adjusted &lt;- (lm(refugee_adjusted ~ seventyfiveviolentcrime))
 plot(seventyfiveviolentcrime, refugee_adjusted, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
 
 abline(violentrefugee_adjusted, col=&quot;blue&quot;)</code></pre>
-<p><img src="evenmoredata_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="evenmoredata_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>cor(seventyfiveviolentcrime, refugee_adjusted)</code></pre>
 <pre><code>## [1] 0.5442698</code></pre>
 <pre class="r"><code>summary(violentrefugee_adjusted)</code></pre>
@@ -350,7 +296,7 @@ propertyrefugee &lt;- (lm(refugee$refugee_pop ~ seventyfivepropertycrime))
 plot(seventyfivepropertycrime, refugee$refugee_pop, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
 
 abline(propertyrefugee, col=&quot;blue&quot;)</code></pre>
-<p><img src="evenmoredata_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="evenmoredata_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>summary(propertyrefugee)</code></pre>
 <pre><code>## 
 ## Call:
@@ -379,7 +325,7 @@ abline(propertyrefugee, col=&quot;blue&quot;)</code></pre>
 plot(seventyfivepropertycrime, refugee_adjusted, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
 
 abline(propertyrefugee_adjusted, col=&quot;blue&quot;)</code></pre>
-<p><img src="evenmoredata_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="evenmoredata_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>cor(seventyfivepropertycrime, refugee_adjusted)</code></pre>
 <pre><code>## [1] 0.6233749</code></pre>
 <pre class="r"><code>summary(propertyrefugee_adjusted)</code></pre>

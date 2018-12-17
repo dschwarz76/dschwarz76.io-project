@@ -219,24 +219,20 @@ $(document).ready(function () {
 
 <div id="data" class="section level3">
 <h3>Data</h3>
-<pre class="r"><code># set names for columns
-uscrime &lt;- setNames(uscrime, c(&quot;year&quot;, &quot;population&quot;, &quot;violent&quot;, &quot;property&quot;, &quot;violent_percentage&quot;, &quot;pre&quot;))
-
-legal &lt;- setNames(legal, c(&quot;immi_year&quot;, &quot;immi_pop&quot;, &quot;immi_percent&quot;, &quot;pre2&quot;))</code></pre>
 <p>Let’s first look at crime rates in the United States from 1960-2014. Why? Because it’s fun! It’s also going to give us a sense of how violent crime and property crime were measured over that time period.</p>
 <pre class="r"><code>plot(uscrime$year,uscrime$violent, main= &quot;Incidents of Violent Crime per 100,000 people&quot;, 
      xlab= &quot;Year&quot;, ylab= &quot;Violent Crime&quot;) </code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="data_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>plot(uscrime$year,uscrime$property, main= &quot;Incidents of Property Crime per 100,000 people&quot;, 
      xlab= &quot;Year&quot;, ylab= &quot;Property Crime&quot;) </code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<p><img src="data_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
 <p>Now onto the comparisons. Let’s analyze legal immigration and its relationship to crime rates. These legal immigration statistics refer to the number of people who legally entered the United States in a given year.</p>
 <pre class="r"><code>violentlegal &lt;- (lm(legal$immi_pop ~ uscrime$violent))
 
 plot(uscrime$violent, legal$immi_pop, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
 
 abline(violentlegal, col=&quot;blue&quot;)</code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="data_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <pre class="r"><code>summary(violentlegal)</code></pre>
 <pre><code>## 
 ## Call:
@@ -274,7 +270,7 @@ violentlegal_adjusted &lt;- (lm(legal_adjusted ~ uscrime$violent))
 plot(uscrime$violent, legal_adjusted, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
 
 abline(violentlegal_adjusted, col=&quot;blue&quot;)</code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="data_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>cor(uscrime$violent, legal_adjusted)</code></pre>
 <pre><code>## [1] 0.5920302</code></pre>
 <pre class="r"><code>summary(violentlegal_adjusted)</code></pre>
@@ -319,7 +315,7 @@ violentlegal_adjusted2 &lt;- (lm(legal_adjusted2 ~ uscrime2$violent))
 plot(uscrime2$violent, legal_adjusted2, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
 
 abline(violentlegal_adjusted2, col=&quot;blue&quot;)</code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="data_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>cor(uscrime2$violent, legal_adjusted2)</code></pre>
 <pre><code>## [1] 0.537407</code></pre>
 <pre class="r"><code>summary(violentlegal_adjusted2)</code></pre>
@@ -348,7 +344,7 @@ abline(violentlegal_adjusted2, col=&quot;blue&quot;)</code></pre>
 plot(uscrime$property, legal$immi_pop, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
 
 abline(propertylegal, col=&quot;blue&quot;)</code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="data_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <pre class="r"><code>summary(propertylegal)</code></pre>
 <pre><code>## 
 ## Call:
@@ -376,7 +372,7 @@ abline(propertylegal, col=&quot;blue&quot;)</code></pre>
 plot(uscrime$property, legal_adjusted, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
 
 abline(propertylegal_adjusted, col=&quot;blue&quot;)</code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="data_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="r"><code>cor(uscrime$property, legal_adjusted)</code></pre>
 <pre><code>## [1] 0.3177849</code></pre>
 <pre class="r"><code>summary(propertylegal_adjusted)</code></pre>
@@ -405,7 +401,7 @@ abline(propertylegal_adjusted, col=&quot;blue&quot;)</code></pre>
 plot(uscrime2$property, legal_adjusted2, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
 
 abline(propertylegal_adjusted2, col=&quot;blue&quot;)</code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="data_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code>cor(uscrime2$property, legal_adjusted2)</code></pre>
 <pre><code>## [1] 0.2124711</code></pre>
 <pre class="r"><code>summary(propertylegal_adjusted2)</code></pre>
