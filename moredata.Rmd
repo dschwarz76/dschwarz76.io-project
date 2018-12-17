@@ -7,7 +7,7 @@ Now let's look at the association between illegal immigration and crime rates fr
 We'll start by analyzing violent crime rates.
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 
 # datasets needed and names assigned
 

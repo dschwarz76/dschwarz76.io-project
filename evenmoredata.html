@@ -223,17 +223,8 @@ $(document).ready(function () {
 <p>Again, we’ll begin by looking at violent crime rates.</p>
 <p>The association between refugees gaining immigration status and the violent crime rate is linear, positive, and with moderate-to-strong strength. The correlation is 0.54 and the p-value is 0.00030. This is a significant result.</p>
 <p>Let’s see what happens when we make the population adjustment.</p>
-<pre class="r"><code>refugee_adjusted &lt;- c(refugee$refugee_pop)/c(usapop$uspop[16:55])
-
-violentrefugee_adjusted &lt;- (lm(refugee_adjusted ~ seventyfiveviolentcrime))
-
-plot(seventyfiveviolentcrime, refugee_adjusted, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
-
-abline(violentrefugee_adjusted, col=&quot;blue&quot;)</code></pre>
 <p><img src="evenmoredata_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<pre class="r"><code>cor(seventyfiveviolentcrime, refugee_adjusted)</code></pre>
 <pre><code>## [1] 0.5442698</code></pre>
-<pre class="r"><code>summary(violentrefugee_adjusted)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = refugee_adjusted ~ seventyfiveviolentcrime)
@@ -254,7 +245,6 @@ abline(violentrefugee_adjusted, col=&quot;blue&quot;)</code></pre>
 ## F-statistic: 15.99 on 1 and 38 DF,  p-value: 0.0002829</code></pre>
 <p>These results are very similar to the results without adjusting for population impact. Again, there is a positive, linear, moderate-to-strong relationship. The correlation remains 0.54. The p-value is virtually unchanged, and now sits at 0.00028.</p>
 <p>In fact, these results also remind me of the first regression analysis in this project, the one comparing violent crime to legal immigration. I’m curious if there’s an interaction between refugee immigration and legal immigration in association with violent crime.</p>
-<pre class="r"><code>summary(lm(seventyfiveviolentcrime ~ legal$immi_pop[16:55] * refugee$refugee_pop))</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = seventyfiveviolentcrime ~ legal$immi_pop[16:55] * 
@@ -288,16 +278,7 @@ abline(violentrefugee_adjusted, col=&quot;blue&quot;)</code></pre>
 ## F-statistic: 16.54 on 3 and 36 DF,  p-value: 0.0000006386</code></pre>
 <p>After running a test, we see that the effect of being a refugee is 0.0000000049 point higher for violent crime for each additional unit of legal immigration.</p>
 <p>Now let’s look at property crime in regards to refugee immigration.</p>
-<pre class="r"><code>seventyfivepropertycrime &lt;- c(uscrime$property[16:55])
-
-
-propertyrefugee &lt;- (lm(refugee$refugee_pop ~ seventyfivepropertycrime))
-
-plot(seventyfivepropertycrime, refugee$refugee_pop, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
-
-abline(propertyrefugee, col=&quot;blue&quot;)</code></pre>
 <p><img src="evenmoredata_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>summary(propertyrefugee)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = refugee$refugee_pop ~ seventyfivepropertycrime)
@@ -316,19 +297,11 @@ abline(propertyrefugee, col=&quot;blue&quot;)</code></pre>
 ## Residual standard error: 33420 on 38 degrees of freedom
 ## Multiple R-squared:  0.2729, Adjusted R-squared:  0.2538 
 ## F-statistic: 14.26 on 1 and 38 DF,  p-value: 0.0005444</code></pre>
-<pre class="r"><code>cor(seventyfivepropertycrime, refugee$refugee_pop)</code></pre>
 <pre><code>## [1] 0.5224129</code></pre>
 <p>The relationship between property crime and refugee immigration is positive, linear, and has moderate-to-strong strength. The correlation is 0.52 and the p-value is 0.00054.</p>
 <p>Lastly, let’s see what happens when we look at the same relationship, adjusting for population impact.</p>
-<pre class="r"><code>propertyrefugee_adjusted &lt;- (lm(refugee_adjusted ~ seventyfivepropertycrime))
-
-plot(seventyfivepropertycrime, refugee_adjusted, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
-
-abline(propertyrefugee_adjusted, col=&quot;blue&quot;)</code></pre>
 <p><img src="evenmoredata_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<pre class="r"><code>cor(seventyfivepropertycrime, refugee_adjusted)</code></pre>
 <pre><code>## [1] 0.6233749</code></pre>
-<pre class="r"><code>summary(propertyrefugee_adjusted)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = refugee_adjusted ~ seventyfivepropertycrime)

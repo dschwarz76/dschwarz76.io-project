@@ -220,20 +220,9 @@ $(document).ready(function () {
 <div id="data" class="section level3">
 <h3>Data</h3>
 <p>Let’s first look at crime rates in the United States from 1960-2014. Why? Because it’s fun! It’s also going to give us a sense of how violent crime and property crime were measured over that time period.</p>
-<pre class="r"><code>plot(uscrime$year,uscrime$violent, main= &quot;Incidents of Violent Crime per 100,000 people&quot;, 
-     xlab= &quot;Year&quot;, ylab= &quot;Violent Crime&quot;) </code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<pre class="r"><code>plot(uscrime$year,uscrime$property, main= &quot;Incidents of Property Crime per 100,000 people&quot;, 
-     xlab= &quot;Year&quot;, ylab= &quot;Property Crime&quot;) </code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<p><img src="data_files/figure-html/unnamed-chunk-1-1.png" width="672" /><img src="data_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
 <p>Now onto the comparisons. Let’s analyze legal immigration and its relationship to crime rates. These legal immigration statistics refer to the number of people who legally entered the United States in a given year.</p>
-<pre class="r"><code>violentlegal &lt;- (lm(legal$immi_pop ~ uscrime$violent))
-
-plot(uscrime$violent, legal$immi_pop, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
-
-abline(violentlegal, col=&quot;blue&quot;)</code></pre>
 <p><img src="data_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<pre class="r"><code>summary(violentlegal)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = legal$immi_pop ~ uscrime$violent)
@@ -252,28 +241,10 @@ abline(violentlegal, col=&quot;blue&quot;)</code></pre>
 ## Residual standard error: 297400 on 53 degrees of freedom
 ## Multiple R-squared:  0.2886, Adjusted R-squared:  0.2752 
 ## F-statistic:  21.5 on 1 and 53 DF,  p-value: 0.00002347</code></pre>
-<pre class="r"><code>cor(uscrime$violent, legal$immi_pop)</code></pre>
 <pre><code>## [1] 0.5372411</code></pre>
 <p>Above we see the association between violent crime and legal immigration. The regression line shows a positive, linear relationship. There’s moderate-to-strong strength between these two variables. The correlation is 0.54. The p-value is a very small 0.000023, which shows a statistically significant result. This means that this relationship has a very small chance of occurring by chance.</p>
-<pre class="r"><code># Adding another dataset here. This shows the total population of the United States on an annual basis. I&#39;m using this as my denominator when seeing how big of a proportion -- year by year -- an immigration category is of the overall US population.
-
-usapop &lt;- read.csv(&quot;usapop.csv&quot;)
-
-usapop &lt;- setNames(usapop, c(&quot;date&quot;, &quot;uspop&quot;))
-
-# Now I&#39;ll be comparing the violent crime rate to legal immigration, with legal immigration as a proportion of the overall US population. 
-
-legal_adjusted &lt;- c(legal$immi_pop)/c(usapop$uspop)
-
-violentlegal_adjusted &lt;- (lm(legal_adjusted ~ uscrime$violent))
-
-plot(uscrime$violent, legal_adjusted, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
-
-abline(violentlegal_adjusted, col=&quot;blue&quot;)</code></pre>
 <p><img src="data_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>cor(uscrime$violent, legal_adjusted)</code></pre>
 <pre><code>## [1] 0.5920302</code></pre>
-<pre class="r"><code>summary(violentlegal_adjusted)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = legal_adjusted ~ uscrime$violent)
@@ -294,31 +265,8 @@ abline(violentlegal_adjusted, col=&quot;blue&quot;)</code></pre>
 ## F-statistic:  28.6 on 1 and 53 DF,  p-value: 0.000001928</code></pre>
 <p>After adjusting for the impact that legal immigration had on the United States population, the correlation becomes a little bit stronger. The correlation between legal immigration and violent crime incidents is now 0.59, and again there is a positive, linear correlation. The p-value is a tiny 0.0000019, which shows a statistically signficant result.</p>
 <p>I’m curious to see what the results would be if we removed the two observations in the upper right corner. What would the correlation be then?</p>
-<pre class="r"><code># I removed data from 1990 and 1991 and reloaded the files.
-
-legal2 &lt;- read.csv(&quot;legal2.csv&quot;)
-
-legal2 &lt;- setNames(legal2, c(&quot;immi_year&quot;, &quot;immi_pop&quot;, &quot;immi_percent&quot;, &quot;pre2&quot;))
-
-usapop2 &lt;- read.csv(&quot;usapop2.csv&quot;)
-
-usapop2 &lt;- setNames(usapop2, c(&quot;date&quot;, &quot;uspop&quot;))
-
-uscrime2 &lt;- read.csv(&quot;USCrime2.csv&quot;)
-
-uscrime2 &lt;- setNames(uscrime2, c(&quot;year&quot;, &quot;population&quot;, &quot;violent&quot;, &quot;property&quot;, &quot;violent_percentage&quot;, &quot;pre&quot;))
-
-legal_adjusted2 &lt;- c(legal2$immi_pop)/c(usapop2$uspop)
-
-violentlegal_adjusted2 &lt;- (lm(legal_adjusted2 ~ uscrime2$violent))
-
-plot(uscrime2$violent, legal_adjusted2, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
-
-abline(violentlegal_adjusted2, col=&quot;blue&quot;)</code></pre>
 <p><img src="data_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<pre class="r"><code>cor(uscrime2$violent, legal_adjusted2)</code></pre>
 <pre><code>## [1] 0.537407</code></pre>
-<pre class="r"><code>summary(violentlegal_adjusted2)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = legal_adjusted2 ~ uscrime2$violent)
@@ -339,13 +287,7 @@ abline(violentlegal_adjusted2, col=&quot;blue&quot;)</code></pre>
 ## F-statistic: 20.71 on 1 and 51 DF,  p-value: 0.00003335</code></pre>
 <p>Removing those two observations – which were large residuals – actually lowered the correlation back to 0.54. I guess those were pulling the slope closer to 1.</p>
 <p>Now let’s look at the relationship between legal immigration and property crime.</p>
-<pre class="r"><code>propertylegal &lt;- (lm(legal$immi_pop ~ uscrime$property))
-
-plot(uscrime$property, legal$immi_pop, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
-
-abline(propertylegal, col=&quot;blue&quot;)</code></pre>
 <p><img src="data_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<pre class="r"><code>summary(propertylegal)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = legal$immi_pop ~ uscrime$property)
@@ -364,18 +306,10 @@ abline(propertylegal, col=&quot;blue&quot;)</code></pre>
 ## Residual standard error: 344500 on 53 degrees of freedom
 ## Multiple R-squared:  0.04563,    Adjusted R-squared:  0.02762 
 ## F-statistic: 2.534 on 1 and 53 DF,  p-value: 0.1174</code></pre>
-<pre class="r"><code>cor(uscrime$property, legal$immi_pop)</code></pre>
 <pre><code>## [1] 0.2136083</code></pre>
 <p>While there’s still a positive, linear relationship, the strength of the correlation is weak here. The correlation is 0.21. The p-value is 0.12 so these results do not show a statistically significant relationship.</p>
-<pre class="r"><code>propertylegal_adjusted &lt;- (lm(legal_adjusted ~ uscrime$property))
-
-plot(uscrime$property, legal_adjusted, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
-
-abline(propertylegal_adjusted, col=&quot;blue&quot;)</code></pre>
 <p><img src="data_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<pre class="r"><code>cor(uscrime$property, legal_adjusted)</code></pre>
 <pre><code>## [1] 0.3177849</code></pre>
-<pre class="r"><code>summary(propertylegal_adjusted)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = legal_adjusted ~ uscrime$property)
@@ -396,15 +330,8 @@ abline(propertylegal_adjusted, col=&quot;blue&quot;)</code></pre>
 ## F-statistic: 5.954 on 1 and 53 DF,  p-value: 0.01807</code></pre>
 <p>After adjusting for legal immigration’s impact on the US population, the result becomes significant. The p-value is 0.018. This chart shows another positive, linear relationship. The strength is weak-to-moderate, as there’s a correlation of 0.32.</p>
 <p>What would happen if we removed the 1990 and 1991 data again? Let’s see.</p>
-<pre class="r"><code>propertylegal_adjusted2 &lt;- (lm(legal_adjusted2 ~ uscrime2$property))
-
-plot(uscrime2$property, legal_adjusted2, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
-
-abline(propertylegal_adjusted2, col=&quot;blue&quot;)</code></pre>
 <p><img src="data_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<pre class="r"><code>cor(uscrime2$property, legal_adjusted2)</code></pre>
 <pre><code>## [1] 0.2124711</code></pre>
-<pre class="r"><code>summary(propertylegal_adjusted2)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = legal_adjusted2 ~ uscrime2$property)

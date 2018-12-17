@@ -223,17 +223,8 @@ $(document).ready(function () {
 <p>We’ll start by analyzing violent crime rates.</p>
 <p>Wow! The correlation between illegal immigration and violent crime is -0.90. That’s a very strong relationship, and this time the relationship is linear and negative. The p-value is a miniscule 0.00000000062.</p>
 <p>What happens when we adjust for illegal immigration’s impact on the greater US population?</p>
-<pre class="r"><code>illegal_adjusted &lt;- c(illegal$illegal_pop)/c(usapop$uspop[31:55])
-
-violentillegal_adjusted &lt;- (lm(illegal_adjusted ~ ninetyviolentcrime))
-
-plot(ninetyviolentcrime, illegal_adjusted, xlab =&quot;Violent crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
-
-abline(violentillegal_adjusted, col=&quot;blue&quot;)</code></pre>
 <p><img src="moredata_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<pre class="r"><code>cor(ninetyviolentcrime, illegal_adjusted)</code></pre>
 <pre><code>## [1] -0.8800959</code></pre>
-<pre class="r"><code>summary(violentillegal_adjusted)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = illegal_adjusted ~ ninetyviolentcrime)
@@ -254,16 +245,7 @@ abline(violentillegal_adjusted, col=&quot;blue&quot;)</code></pre>
 ## F-statistic: 79.03 on 1 and 23 DF,  p-value: 0.000000006707</code></pre>
 <p>There’s still a negative, linear relationship here. The strength is strong. The correlation didn’t change much. It just dipped slightly to -0.88, and the p-value is still a tiny 0.0000000067.</p>
 <p>What happens when we look at illegal immigration and property crime?</p>
-<pre class="r"><code>ninetypropertycrime &lt;- c(uscrime$property[31:55])
-
-
-propertyillegal &lt;- (lm(illegal$illegal_pop ~ ninetypropertycrime))
-
-plot(ninetypropertycrime, illegal$illegal_pop, xlab =&quot;Property crime incidents&quot;, ylab =&quot;Immigrants in a year&quot;)
-
-abline(propertyillegal, col=&quot;blue&quot;)</code></pre>
 <p><img src="moredata_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<pre class="r"><code>summary(propertyillegal)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = illegal$illegal_pop ~ ninetypropertycrime)
@@ -282,19 +264,11 @@ abline(propertyillegal, col=&quot;blue&quot;)</code></pre>
 ## Residual standard error: 1706000 on 23 degrees of freedom
 ## Multiple R-squared:  0.8052, Adjusted R-squared:  0.7967 
 ## F-statistic: 95.08 on 1 and 23 DF,  p-value: 0.000000001228</code></pre>
-<pre class="r"><code>cor(ninetypropertycrime, illegal$illegal_pop)</code></pre>
 <pre><code>## [1] -0.8973372</code></pre>
 <p>Interesting. As it relates to illegal immigration, the property crime data looks very similar to the violent crime data. There’s a strong, negative, linear relationship. The correlation is -0.90. The p-value is 0.0000000012.</p>
 <p>Let’s see what happens when we look at illegal immigration as it relates to property crime, this time adjusting for population impact.</p>
-<pre class="r"><code>propertyillegal_adjusted &lt;- (lm(illegal_adjusted ~ ninetypropertycrime))
-
-plot(ninetypropertycrime, illegal_adjusted, xlab =&quot;Preoperty crime incidents&quot;, ylab =&quot;Immigrants as proportion&quot;)
-
-abline(propertyillegal_adjusted, col=&quot;blue&quot;)</code></pre>
 <p><img src="moredata_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>cor(ninetypropertycrime, illegal_adjusted)</code></pre>
 <pre><code>## [1] -0.865451</code></pre>
-<pre class="r"><code>summary(propertyillegal_adjusted)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = illegal_adjusted ~ ninetypropertycrime)
