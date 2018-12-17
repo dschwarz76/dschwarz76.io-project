@@ -6,7 +6,8 @@ Lastly, let's look at the relationship between crime rates and the number of ref
 
 Again, we'll begin by looking at violent crime rates.
 
-```{r}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 
 #load data again
 
